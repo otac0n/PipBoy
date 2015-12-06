@@ -107,6 +107,8 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LineReaderConnection.cs" />
+    <Compile Include="TcpConnection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Properties\PipBoy.Protocol.rd.xml" />
   </ItemGroup>
