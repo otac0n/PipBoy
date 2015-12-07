@@ -1,11 +1,11 @@
-﻿using System;
-using System.Net;
-using PipBoy.Protocol;
-using ReactiveUI;
-
-namespace PipBoy.ViewModels
+﻿namespace PipBoy.ViewModels
 {
-    public class ClientViewModel : ReactiveObject, IDisposable
+    using System;
+    using System.Net;
+    using PipBoy.Protocol;
+    using ReactiveUI;
+
+    internal class ClientViewModel : ReactiveObject, IDisposable
     {
         private readonly CommandInterpreter connection;
         private readonly ObservableAsPropertyHelper<ServerVersion> serverVersion;
@@ -16,12 +16,12 @@ namespace PipBoy.ViewModels
 
             this.connection
                 .WhenAny(x => x.ServerVersion, x => x.Value)
-                .ToProperty(this, x => x.ServerVersion, out serverVersion);
+                .ToProperty(this, x => x.ServerVersion, out this.serverVersion);
 
             this.GameInfo = new GameInfoViewModel(this.connection.ServerViewModel.Root);
         }
 
-        public ServerVersion ServerVersion => serverVersion.Value;
+        public ServerVersion ServerVersion => this.serverVersion.Value;
 
         public GameInfoViewModel GameInfo { get; }
 

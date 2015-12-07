@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Reactive.Linq;
-using PipBoy.Protocol;
-using ReactiveUI;
-
-namespace PipBoy.ViewModels
+﻿namespace PipBoy.ViewModels
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq.Expressions;
+    using System.Reactive.Linq;
+    using PipBoy.Protocol;
+    using ReactiveUI;
+
     internal static class ObservableExtensions
     {
-        public static void ToBoxedProperty<TObj, TRet>(this IObservable<Dictionary<string, Box>> @this, TObj source, Expression<Func<TObj, TRet>> property, out ObservableAsPropertyHelper<TRet> result, Func<Box, TRet> func, string keyName = null) where TObj : ReactiveObject
+        public static void ToBoxedProperty<TObj, TRet>(this IObservable<Dictionary<string, Box>> @this, TObj source, Expression<Func<TObj, TRet>> property, out ObservableAsPropertyHelper<TRet> result, Func<Box, TRet> func, string keyName = null)
+            where TObj : ReactiveObject
         {
             if (keyName == null)
             {

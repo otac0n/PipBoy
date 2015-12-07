@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using PipBoy.Protocol;
-using ReactiveUI;
-
-namespace PipBoy.ViewModels
+﻿namespace PipBoy.ViewModels
 {
-    public class InventoryItemViewModel : ReactiveObject
+    using System.Collections.Generic;
+    using PipBoy.Protocol;
+    using ReactiveUI;
+
+    internal class InventoryItemViewModel : ReactiveObject
     {
         private readonly ObservableAsPropertyHelper<bool> canFavorite;
         private readonly ObservableAsPropertyHelper<int> count;
@@ -18,14 +18,14 @@ namespace PipBoy.ViewModels
         public InventoryItemViewModel(Box box)
         {
             var properties = box.WhenAny(x => x.Value, x => x.Value as Dictionary<string, Box>);
-            properties.ToBoxedProperty(this, x => x.CanFavorite, out canFavorite, b => (bool)b.Value, "canFavorite");
-            properties.ToBoxedProperty(this, x => x.Count, out count, b => (int)b.Value, "count");
-            properties.ToBoxedProperty(this, x => x.EquipState, out equipState, b => (int)b.Value, "equipState");
-            properties.ToBoxedProperty(this, x => x.Favorite, out favorite, b => (int)b.Value, "favorite");
-            properties.ToBoxedProperty(this, x => x.IsLegendary, out isLegendary, b => (bool)b.Value, "isLegendary");
-            properties.ToBoxedProperty(this, x => x.IsPowerArmorItem, out isPowerArmorItem, b => (bool)b.Value, "isPowerArmorItem");
-            properties.ToBoxedProperty(this, x => x.TaggedForSearch, out taggedForSearch, b => (bool)b.Value, "taggedForSearch");
-            properties.ToBoxedProperty(this, x => x.Text, out text, b => b.Value as string, "text");
+            properties.ToBoxedProperty(this, x => x.CanFavorite, out this.canFavorite, b => (bool)b.Value, "canFavorite");
+            properties.ToBoxedProperty(this, x => x.Count, out this.count, b => (int)b.Value, "count");
+            properties.ToBoxedProperty(this, x => x.EquipState, out this.equipState, b => (int)b.Value, "equipState");
+            properties.ToBoxedProperty(this, x => x.Favorite, out this.favorite, b => (int)b.Value, "favorite");
+            properties.ToBoxedProperty(this, x => x.IsLegendary, out this.isLegendary, b => (bool)b.Value, "isLegendary");
+            properties.ToBoxedProperty(this, x => x.IsPowerArmorItem, out this.isPowerArmorItem, b => (bool)b.Value, "isPowerArmorItem");
+            properties.ToBoxedProperty(this, x => x.TaggedForSearch, out this.taggedForSearch, b => (bool)b.Value, "taggedForSearch");
+            properties.ToBoxedProperty(this, x => x.Text, out this.text, b => b.Value as string, "text");
         }
 
         public bool CanFavorite => this.canFavorite.Value;

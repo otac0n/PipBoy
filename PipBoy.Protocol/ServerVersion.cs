@@ -9,6 +9,7 @@
         }
 
         public string Lang { get; }
+
         public string Version { get; }
     }
 }
