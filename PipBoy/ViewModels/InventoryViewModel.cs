@@ -31,6 +31,7 @@ namespace PipBoy.ViewModels
         public ObservableBoxedList<InventoryItemViewModel> Aid => this.aid.Value;
 
         public ObservableBoxedList<InventoryItemViewModel> Ammo => this.ammo.Value;
+
         public ObservableBoxedList<InventoryItemViewModel> Apparel => this.apparel.Value;
 
         public ObservableBoxedList<InventoryItemViewModel> Holotapes => this.holotapes.Value;
