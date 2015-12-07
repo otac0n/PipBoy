@@ -21,10 +21,7 @@ namespace PipBoy.ViewModels
             this.GameInfo = new GameInfoViewModel(this.connection.ServerViewModel.Root);
         }
 
-        public ServerVersion ServerVersion
-        {
-            get { return serverVersion.Value; }
-        }
+        public ServerVersion ServerVersion => serverVersion.Value;
 
         public GameInfoViewModel GameInfo { get; }
 

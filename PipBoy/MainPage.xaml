@@ -11,6 +11,13 @@
         <StackPanel>
             <TextBlock Text="{Binding ServerVersion.Version}" />
             <TextBlock Text="{Binding GameInfo.PlayerInfo.PlayerName}" />
+            <ItemsControl ItemsSource="{Binding GameInfo.Inventory.Misc}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Text}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </StackPanel>
     </Grid>
 </Page>

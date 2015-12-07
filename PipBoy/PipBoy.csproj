@@ -105,6 +105,9 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\InventoryItemViewModel.cs" />
+    <Compile Include="ViewModels\InventoryViewModel.cs" />
+    <Compile Include="ViewModels\ObservableBoxedList.cs" />
     <Compile Include="ViewModels\ObservableExtensions.cs" />
     <Compile Include="ViewModels\PlayerInfoViewModel.cs" />
   </ItemGroup>
