@@ -8,6 +8,9 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+        <StackPanel>
+            <TextBlock Text="{Binding ServerVersion.Version}" />
+            <TextBlock Text="{Binding GameInfo.PlayerInfo.PlayerName}" />
+        </StackPanel>
     </Grid>
 </Page>
