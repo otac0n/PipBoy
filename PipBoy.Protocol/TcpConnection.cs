@@ -57,7 +57,7 @@ namespace PipBoy.Protocol
 
             var connectInfo = new SocketAsyncEventArgs
             {
-                BufferList = new[] { new ArraySegment<byte>(buffer) },
+                BufferList = new[] { new ArraySegment<byte>(buffer, offset, count) },
             };
 
             EventHandler<SocketAsyncEventArgs> complete = (s, a) =>
