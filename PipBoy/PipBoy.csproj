@@ -31,6 +31,7 @@
     <Prefer32Bit>true</Prefer32Bit>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisRuleSet>..\Modern.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\ARM\Debug\PipBoy.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
     <OutputPath>bin\ARM\Release\</OutputPath>
@@ -45,6 +46,7 @@
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisRuleSet>..\Modern.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\ARM\Release\PipBoy.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -58,6 +60,7 @@
     <Prefer32Bit>true</Prefer32Bit>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisRuleSet>..\Modern.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\x64\Debug\PipBoy.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -72,6 +75,7 @@
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisRuleSet>..\Modern.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\x64\Release\PipBoy.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -85,6 +89,7 @@
     <Prefer32Bit>true</Prefer32Bit>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisRuleSet>..\Modern.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\x86\Debug\PipBoy.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -99,6 +104,7 @@
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisRuleSet>..\Modern.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\x86\Release\PipBoy.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->

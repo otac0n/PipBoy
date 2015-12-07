@@ -1,4 +1,6 @@
-﻿namespace PipBoy.ViewModels
+﻿// Copyright (c) John and Katie Gietzen. All rights reserved.
+
+namespace PipBoy.ViewModels
 {
     using System.Collections.Generic;
     using PipBoy.Protocol;

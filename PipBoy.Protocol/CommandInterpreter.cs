@@ -1,4 +1,6 @@
-﻿namespace PipBoy.Protocol
+﻿// Copyright (c) John and Katie Gietzen. All rights reserved.
+
+namespace PipBoy.Protocol
 {
     using System;
     using System.Net;
@@ -46,7 +48,6 @@
                 .Subscribe(async _ => await this.lineReaderConnection.SendAsync((byte)CommandType.Ping, new byte[0]));
 
             this.disposable = new CompositeDisposable(
-                this.lineReaderConnection,
                 lineReader,
                 ping);
         }
@@ -68,6 +69,7 @@
 
         public void Dispose()
         {
+            this.lineReaderConnection.Dispose();
             this.disposable.Dispose();
         }
 

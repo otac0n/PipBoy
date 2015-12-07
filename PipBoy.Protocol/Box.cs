@@ -1,4 +1,6 @@
-﻿namespace PipBoy.Protocol
+﻿// Copyright (c) John and Katie Gietzen. All rights reserved.
+
+namespace PipBoy.Protocol
 {
     using ReactiveUI;
 

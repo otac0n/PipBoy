@@ -1,4 +1,6 @@
-﻿namespace PipBoy
+﻿// Copyright (c) John and Katie Gietzen. All rights reserved.
+
+namespace PipBoy
 {
     using System;
     using Windows.ApplicationModel;
