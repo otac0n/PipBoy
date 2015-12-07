@@ -1,32 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
 namespace PipBoy.Protocol
 {
-    internal class ServerViewModel
+    public class ServerViewModel
     {
-        private readonly Dictionary<int, Box<object>> graph;
-        private HashSet<int> roots;
+        private readonly Dictionary<int, Box> graph;
 
         public ServerViewModel()
         {
-            this.graph = new Dictionary<int, Box<object>>();
-            this.roots = new HashSet<int>();
+            this.graph = new Dictionary<int, Box>();
+            this.Root = this.GetBox(0);
         }
 
-        private Box<object> BoxAt(int id)
-        {
-            Box<object> box;
-            if (!graph.TryGetValue(id, out box))
-            {
-                roots.Add(id);
-                graph[id] = box = new Box<object>();
-            }
-
-            return box;
-        }
+        public Box Root { get; }
 
         public void Update(byte[] data)
         {
@@ -64,40 +54,28 @@ namespace PipBoy.Protocol
             while (index < data.Length)
             {
                 var kind = readByte();
-                var id = readInt();
+                var box = this.GetBox(id: readInt());
 
                 switch (kind)
                 {
                     case 0:
-                        {
-                            var value = readByte();
-                            this.BoxAt(id).Value = (value != 0);
-                            break;
-                        }
+                        box.Value = (readByte() != 0);
+                        break;
 
                     case 1:
                     case 2:
-                        {
-                            var value = readByte();
-                            this.BoxAt(id).Value = value;
-                            break;
-                        }
+                        box.Value = readByte();
+                        break;
 
                     case 3:
                     case 4:
                     case 5:
-                        {
-                            var value = readInt();
-                            this.BoxAt(id).Value = value;
-                            break;
-                        }
+                        box.Value = readInt();
+                        break;
 
                     case 6:
-                        {
-                            var value = readString();
-                            this.BoxAt(id).Value = value;
-                            break;
-                        }
+                        box.Value = readString();
+                        break;
 
                     case 7:
                         {
@@ -109,7 +87,7 @@ namespace PipBoy.Protocol
                                 items[i] = readInt();
                             }
 
-                            this.BoxAt(id).Value = items.Select(r => this.BoxAt(r)).ToList();
+                            box.Value = items.Select(r => this.GetBox(r)).ToList();
                             break;
                         }
 
@@ -126,8 +104,9 @@ namespace PipBoy.Protocol
                             }
 
                             var tail = readShort(); // TODO: I don't know what this is for.
+                            Debug.WriteLine($"tail: {tail}");
 
-                            this.BoxAt(id).Value = Enumerable.Range(0, count).ToDictionary(i => keys[i], i => this.BoxAt(values[i]));
+                            box.Value = Enumerable.Range(0, count).ToDictionary(i => keys[i], i => this.GetBox(values[i]));
                             break;
                         }
 
@@ -137,14 +116,15 @@ namespace PipBoy.Protocol
             }
         }
 
-        private class Box<T>
+        private Box GetBox(int id)
         {
-            public Box(T initialValue = default(T))
+            Box box;
+            if (!graph.TryGetValue(id, out box))
             {
-                this.Value = initialValue;
+                graph[id] = box = new Box(id);
             }
 
-            public T Value { get; set; }
+            return box;
         }
     }
 }

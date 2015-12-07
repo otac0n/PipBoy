@@ -12,7 +12,6 @@ namespace PipBoy.Protocol
     {
         private readonly IDisposable disposable;
         private readonly LineReaderConnection lineReaderConnection;
-        private readonly ServerViewModel serverViewModel;
         private ServerVersion version;
 
         public ServerVersion ServerVersion
@@ -21,9 +20,11 @@ namespace PipBoy.Protocol
             set { this.RaiseAndSetIfChanged(ref this.version, value); }
         }
 
+        public ServerViewModel ServerViewModel { get; }
+
         public CommandInterpreter(EndPoint endPoint)
         {
-            this.serverViewModel = new ServerViewModel();
+            this.ServerViewModel = new ServerViewModel();
 
             this.lineReaderConnection = new LineReaderConnection();
 
@@ -79,7 +80,7 @@ namespace PipBoy.Protocol
 
                 case CommandType.GameState:
                     {
-                        this.serverViewModel.Update(data);
+                        this.ServerViewModel.Update(data);
                         break;
                     }
 

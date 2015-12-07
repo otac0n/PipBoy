@@ -107,6 +107,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Box.cs" />
     <Compile Include="CommandInterpreter.cs" />
     <Compile Include="LineReaderConnection.cs" />
     <Compile Include="ServerViewModel.cs" />
