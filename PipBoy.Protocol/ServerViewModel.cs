@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
+﻿// Copyright (c) John and Katie Gietzen. All rights reserved.
 
 namespace PipBoy.Protocol
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Text;
+
     public class ServerViewModel
     {
         private readonly Dictionary<int, Box> graph;
@@ -59,7 +61,7 @@ namespace PipBoy.Protocol
                 switch (kind)
                 {
                     case 0:
-                        box.Value = (readByte() != 0);
+                        box.Value = readByte() != 0;
                         break;
 
                     case 1:
@@ -119,9 +121,9 @@ namespace PipBoy.Protocol
         private Box GetBox(int id)
         {
             Box box;
-            if (!graph.TryGetValue(id, out box))
+            if (!this.graph.TryGetValue(id, out box))
             {
-                graph[id] = box = new Box(id);
+                this.graph[id] = box = new Box(id);
             }
 
             return box;

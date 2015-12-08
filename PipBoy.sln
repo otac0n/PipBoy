@@ -7,19 +7,24 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PipBoy", "PipBoy\PipBoy.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PipBoy.Protocol", "PipBoy.Protocol\PipBoy.Protocol.csproj", "{0EF1BD50-F9DF-42A9-9080-4BE112236A34}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EC7B000C-8178-4974-ACFB-99B93C6E44F3}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		Modern.ruleset = Modern.ruleset
+		stylecop.json = stylecop.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
 		Debug|ARM = Debug|ARM
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
-		Release|Any CPU = Release|Any CPU
 		Release|ARM = Release|ARM
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{37581099-0379-4354-9A48-680714CE6984}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{37581099-0379-4354-9A48-680714CE6984}.Debug|ARM.ActiveCfg = Debug|ARM
 		{37581099-0379-4354-9A48-680714CE6984}.Debug|ARM.Build.0 = Debug|ARM
 		{37581099-0379-4354-9A48-680714CE6984}.Debug|ARM.Deploy.0 = Debug|ARM
@@ -29,7 +34,6 @@ Global
 		{37581099-0379-4354-9A48-680714CE6984}.Debug|x86.ActiveCfg = Debug|x86
 		{37581099-0379-4354-9A48-680714CE6984}.Debug|x86.Build.0 = Debug|x86
 		{37581099-0379-4354-9A48-680714CE6984}.Debug|x86.Deploy.0 = Debug|x86
-		{37581099-0379-4354-9A48-680714CE6984}.Release|Any CPU.ActiveCfg = Release|x86
 		{37581099-0379-4354-9A48-680714CE6984}.Release|ARM.ActiveCfg = Release|ARM
 		{37581099-0379-4354-9A48-680714CE6984}.Release|ARM.Build.0 = Release|ARM
 		{37581099-0379-4354-9A48-680714CE6984}.Release|ARM.Deploy.0 = Release|ARM
@@ -39,16 +43,12 @@ Global
 		{37581099-0379-4354-9A48-680714CE6984}.Release|x86.ActiveCfg = Release|x86
 		{37581099-0379-4354-9A48-680714CE6984}.Release|x86.Build.0 = Release|x86
 		{37581099-0379-4354-9A48-680714CE6984}.Release|x86.Deploy.0 = Release|x86
-		{0EF1BD50-F9DF-42A9-9080-4BE112236A34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0EF1BD50-F9DF-42A9-9080-4BE112236A34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EF1BD50-F9DF-42A9-9080-4BE112236A34}.Debug|ARM.ActiveCfg = Debug|ARM
 		{0EF1BD50-F9DF-42A9-9080-4BE112236A34}.Debug|ARM.Build.0 = Debug|ARM
 		{0EF1BD50-F9DF-42A9-9080-4BE112236A34}.Debug|x64.ActiveCfg = Debug|x64
 		{0EF1BD50-F9DF-42A9-9080-4BE112236A34}.Debug|x64.Build.0 = Debug|x64
 		{0EF1BD50-F9DF-42A9-9080-4BE112236A34}.Debug|x86.ActiveCfg = Debug|x86
 		{0EF1BD50-F9DF-42A9-9080-4BE112236A34}.Debug|x86.Build.0 = Debug|x86
-		{0EF1BD50-F9DF-42A9-9080-4BE112236A34}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0EF1BD50-F9DF-42A9-9080-4BE112236A34}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0EF1BD50-F9DF-42A9-9080-4BE112236A34}.Release|ARM.ActiveCfg = Release|ARM
 		{0EF1BD50-F9DF-42A9-9080-4BE112236A34}.Release|ARM.Build.0 = Release|ARM
 		{0EF1BD50-F9DF-42A9-9080-4BE112236A34}.Release|x64.ActiveCfg = Release|x64

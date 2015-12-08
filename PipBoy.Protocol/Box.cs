@@ -1,7 +1,9 @@
-﻿using ReactiveUI;
+﻿// Copyright (c) John and Katie Gietzen. All rights reserved.
 
 namespace PipBoy.Protocol
 {
+    using ReactiveUI;
+
     public class Box : ReactiveObject
     {
         private object value;

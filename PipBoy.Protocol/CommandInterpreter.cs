@@ -1,26 +1,20 @@
-﻿using System;
-using System.Net;
-using System.Reactive.Disposables;
-using System.Reactive.Linq;
-using System.Text;
-using Newtonsoft.Json;
-using ReactiveUI;
+﻿// Copyright (c) John and Katie Gietzen. All rights reserved.
 
 namespace PipBoy.Protocol
 {
+    using System;
+    using System.Net;
+    using System.Reactive.Disposables;
+    using System.Reactive.Linq;
+    using System.Text;
+    using Newtonsoft.Json;
+    using ReactiveUI;
+
     public class CommandInterpreter : ReactiveObject, IDisposable
     {
         private readonly IDisposable disposable;
         private readonly LineReaderConnection lineReaderConnection;
         private ServerVersion version;
-
-        public ServerVersion ServerVersion
-        {
-            get { return this.version; }
-            set { this.RaiseAndSetIfChanged(ref this.version, value); }
-        }
-
-        public ServerViewModel ServerViewModel { get; }
 
         public CommandInterpreter(EndPoint endPoint)
         {
@@ -54,13 +48,28 @@ namespace PipBoy.Protocol
                 .Subscribe(async _ => await this.lineReaderConnection.SendAsync((byte)CommandType.Ping, new byte[0]));
 
             this.disposable = new CompositeDisposable(
-                this.lineReaderConnection,
                 lineReader,
                 ping);
         }
 
+        private enum CommandType : byte
+        {
+            Ping = 0,
+            Version = 1,
+            GameState = 3,
+        }
+
+        public ServerVersion ServerVersion
+        {
+            get { return this.version; }
+            set { this.RaiseAndSetIfChanged(ref this.version, value); }
+        }
+
+        public ServerViewModel ServerViewModel { get; }
+
         public void Dispose()
         {
+            this.lineReaderConnection.Dispose();
             this.disposable.Dispose();
         }
 
@@ -87,13 +96,6 @@ namespace PipBoy.Protocol
                 default:
                     throw new NotSupportedException();
             }
-        }
-
-        private enum CommandType : byte
-        {
-            Ping = 0,
-            Version = 1,
-            GameState = 3,
         }
     }
 }

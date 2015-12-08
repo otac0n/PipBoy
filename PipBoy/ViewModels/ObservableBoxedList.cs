@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
-using PipBoy.Protocol;
+﻿// Copyright (c) John and Katie Gietzen. All rights reserved.
 
 namespace PipBoy.ViewModels
 {
-    public class ObservableBoxedList<T> : ObservableCollection<T>
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Diagnostics;
+    using PipBoy.Protocol;
+
+    internal class ObservableBoxedList<T> : ObservableCollection<T>
     {
         private readonly Box box;
-        private Dictionary<int, T> ids = new Dictionary<int, T>();
         private readonly Func<Box, T> factory;
 
         public ObservableBoxedList(Box box, Func<Box, T> factory)
@@ -18,13 +19,13 @@ namespace PipBoy.ViewModels
             this.box = box;
             this.factory = factory;
 
-            this.box.PropertyChanged += Box_PropertyChanged;
+            this.box.PropertyChanged += this.Box_PropertyChanged;
             this.Box_PropertyChanged(box, new PropertyChangedEventArgs("Value"));
         }
 
         private void Box_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            Debug.Assert(e.PropertyName == "Value");
+            Debug.Assert(e.PropertyName == "Value", "Box expected to only ever raise property changed for its 'Value' property.");
 
             this.Clear();
             var newValue = this.box.Value as List<Box>;

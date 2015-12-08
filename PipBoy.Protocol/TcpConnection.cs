@@ -1,10 +1,12 @@
-﻿using System;
-using System.Net;
-using System.Net.Sockets;
-using System.Threading.Tasks;
+﻿// Copyright (c) John and Katie Gietzen. All rights reserved.
 
 namespace PipBoy.Protocol
 {
+    using System;
+    using System.Net;
+    using System.Net.Sockets;
+    using System.Threading.Tasks;
+
     public class TcpConnection : IDisposable
     {
         private readonly Socket socket;

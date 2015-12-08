@@ -1,11 +1,11 @@
-﻿using System;
-using System.Net;
-using PipBoy.ViewModels;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Data;
+﻿// Copyright (c) John and Katie Gietzen. All rights reserved.
 
 namespace PipBoy
 {
+    using System.Net;
+    using PipBoy.ViewModels;
+    using Windows.UI.Xaml.Controls;
+
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
@@ -14,8 +14,7 @@ namespace PipBoy
         public MainPage()
         {
             this.InitializeComponent();
-            this.DataContext = new ClientViewModel(new IPEndPoint(IPAddress.Parse("192.168.0.3"), 27000));
+            this.DataContext = new ClientViewModel(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 27000));
         }
     }
 }
-
