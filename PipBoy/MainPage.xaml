@@ -6,18 +6,84 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
+    <Page.Resources>
+        <local:BooleanToVisibilityConverter x:Key="vis" />
+    </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel>
             <TextBlock Text="{Binding ServerVersion.Version}" />
             <TextBlock Text="{Binding GameInfo.PlayerInfo.PlayerName}" />
-            <ItemsControl ItemsSource="{Binding GameInfo.Inventory.Misc}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Text}" />
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            <StackPanel Orientation="Horizontal">
+                <RadioButton Name="Inventory">
+                    <TextBlock Text="Inventory"/>
+                </RadioButton>
+            </StackPanel>
+            <FlipView Visibility="{Binding IsChecked, ElementName=Inventory, Converter={StaticResource vis}}">
+                <FlipViewItem Name="Weapons">
+                    <ItemsControl ItemsSource="{Binding GameInfo.Inventory.Weapons}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Text}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </FlipViewItem>
+                <FlipViewItem Name="Apparel">
+                    <ItemsControl ItemsSource="{Binding GameInfo.Inventory.Apparel}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Text}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </FlipViewItem>
+                <FlipViewItem Name="Aid">
+                    <ItemsControl ItemsSource="{Binding GameInfo.Inventory.Aid}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Text}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </FlipViewItem>
+                <FlipViewItem Name="Misc">
+                    <ItemsControl ItemsSource="{Binding GameInfo.Inventory.Misc}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Text}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </FlipViewItem>
+                <FlipViewItem Name="Junk">
+                    <ItemsControl ItemsSource="{Binding GameInfo.Inventory.Junk}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Text}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </FlipViewItem>
+                <FlipViewItem Name="Mods">
+                    <ItemsControl ItemsSource="{Binding GameInfo.Inventory.Mods}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Text}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </FlipViewItem>
+                <FlipViewItem Name="Ammo">
+                    <ItemsControl ItemsSource="{Binding GameInfo.Inventory.Ammo}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Text}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </FlipViewItem>
+            </FlipView>
         </StackPanel>
     </Grid>
 </Page>

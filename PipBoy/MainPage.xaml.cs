@@ -1,6 +1,8 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using PipBoy.ViewModels;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Data;
 
 namespace PipBoy
 {
@@ -12,7 +14,8 @@ namespace PipBoy
         public MainPage()
         {
             this.InitializeComponent();
-            this.DataContext = new ClientViewModel(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 27000));
+            this.DataContext = new ClientViewModel(new IPEndPoint(IPAddress.Parse("192.168.0.3"), 27000));
         }
     }
 }
+
