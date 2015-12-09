@@ -7,7 +7,7 @@ namespace PipBoy.Protocol
     using System.Net.Sockets;
     using System.Threading.Tasks;
 
-    public class TcpConnection : IDisposable
+    internal sealed class TcpConnection : IDisposable
     {
         private readonly Socket socket;
 
@@ -29,7 +29,7 @@ namespace PipBoy.Protocol
             {
                 if (a.SocketError != SocketError.Success)
                 {
-                    result.SetException(new SocketException((int)a.SocketError));
+                    throw new SocketException((int)a.SocketError);
                 }
                 else
                 {
@@ -66,7 +66,7 @@ namespace PipBoy.Protocol
             {
                 if (a.SocketError != SocketError.Success)
                 {
-                    result.SetException(new SocketException((int)a.SocketError));
+                    throw new SocketException((int)a.SocketError);
                 }
                 else
                 {
@@ -103,7 +103,7 @@ namespace PipBoy.Protocol
             {
                 if (a.SocketError != SocketError.Success)
                 {
-                    result.SetException(new SocketException((int)a.SocketError));
+                    throw new SocketException((int)a.SocketError);
                 }
                 else
                 {

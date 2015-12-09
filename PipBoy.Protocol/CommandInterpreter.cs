@@ -6,11 +6,10 @@ namespace PipBoy.Protocol
     using System.Net;
     using System.Reactive.Disposables;
     using System.Reactive.Linq;
-    using System.Text;
     using Newtonsoft.Json;
     using ReactiveUI;
 
-    public class CommandInterpreter : ReactiveObject, IDisposable
+    public sealed class CommandInterpreter : ReactiveObject, IDisposable
     {
         private readonly IDisposable disposable;
         private readonly LineReaderConnection lineReaderConnection;
@@ -83,7 +82,7 @@ namespace PipBoy.Protocol
                 case CommandType.Version:
                     {
                         this.ServerVersion = JsonConvert.DeserializeObject<ServerVersion>(
-                            Encoding.GetEncoding(28591).GetString(data));
+                            ServerViewModel.StringEncoding.GetString(data));
                         break;
                     }
 

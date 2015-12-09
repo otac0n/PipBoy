@@ -10,6 +10,8 @@ namespace PipBoy.Protocol
 
     public class ServerViewModel
     {
+        public static readonly Encoding StringEncoding = Encoding.GetEncoding(28591);
+
         private readonly Dictionary<int, Box> graph;
 
         public ServerViewModel()
@@ -38,19 +40,11 @@ namespace PipBoy.Protocol
             });
             var readString = new Func<string>(() =>
             {
-                var sb = new StringBuilder();
-                while (true)
-                {
-                    var b = readByte();
-                    if (b == 0)
-                    {
-                        break;
-                    }
+                var start = index;
+                var end = Array.IndexOf(data, (byte)0, start);
 
-                    sb.Append((char)b);
-                }
-
-                return sb.ToString();
+                index = end + 1;
+                return StringEncoding.GetString(data, start, end - start);
             });
 
             while (index < data.Length)

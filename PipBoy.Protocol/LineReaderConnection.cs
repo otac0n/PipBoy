@@ -6,7 +6,7 @@ namespace PipBoy.Protocol
     using System.Net;
     using System.Threading.Tasks;
 
-    public class LineReaderConnection : IDisposable
+    internal sealed class LineReaderConnection : IDisposable
     {
         private const int MaxSize = 1024;
 
@@ -22,36 +22,38 @@ namespace PipBoy.Protocol
             await this.tcpConnection.ConnectAsync(endPoint);
         }
 
-        public async Task<Tuple<byte, byte[]>> ReceiveAsync()
+        private async Task<bool> TryFillBuffer(byte[] buffer)
         {
-            var header = new byte[sizeof(int) + 1];
-
             var read = 0;
-            while (read < header.Length)
+            while (read < buffer.Length)
             {
-                var count = await this.tcpConnection.ReceiveAsync(header, read, header.Length - read);
+                var count = await this.tcpConnection.ReceiveAsync(buffer, read, buffer.Length - read);
                 if (count == 0)
                 {
-                    return null;
+                    return false;
                 }
 
                 read += count;
             }
 
+            return true;
+        }
+
+        public async Task<Tuple<byte, byte[]>> ReceiveAsync()
+        {
+            var header = new byte[sizeof(int) + 1];
+            if (!await this.TryFillBuffer(header))
+            {
+                return null;
+            }
+
             var payloadSize = BitConverter.ToInt32(header, 0);
             var type = header[sizeof(int)];
+
             var payload = new byte[payloadSize];
-
-            read = 0;
-            while (read < payloadSize)
+            if (!await this.TryFillBuffer(payload))
             {
-                var count = await this.tcpConnection.ReceiveAsync(payload, read, Math.Min(payloadSize - read, MaxSize));
-                if (count == 0)
-                {
-                    return null;
-                }
-
-                read += count;
+                return null;
             }
 
             return Tuple.Create(type, payload);
