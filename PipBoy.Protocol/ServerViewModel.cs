@@ -4,7 +4,6 @@ namespace PipBoy.Protocol
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Linq;
     using System.Text;
 
@@ -100,7 +99,6 @@ namespace PipBoy.Protocol
                             }
 
                             var tail = readShort(); // TODO: I don't know what this is for.
-                            Debug.WriteLine($"tail: {tail}");
 
                             box.Value = Enumerable.Range(0, count).ToDictionary(i => keys[i], i => this.GetBox(values[i]));
                             break;

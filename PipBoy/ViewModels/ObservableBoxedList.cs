@@ -34,9 +34,9 @@ namespace PipBoy.ViewModels
                 return;
             }
 
-            foreach (var box in newValue)
+            foreach (var item in newValue)
             {
-                this.Add(this.factory(box));
+                this.Add(this.factory(item));
             }
         }
     }
