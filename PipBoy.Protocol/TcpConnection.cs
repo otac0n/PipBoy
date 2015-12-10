@@ -29,7 +29,7 @@ namespace PipBoy.Protocol
             {
                 if (a.SocketError != SocketError.Success)
                 {
-                    throw new SocketException((int)a.SocketError);
+                    throw a.ConnectByNameError ?? new SocketException((int)a.SocketError);
                 }
                 else
                 {
@@ -129,6 +129,7 @@ namespace PipBoy.Protocol
 
         public void Dispose()
         {
+            this.socket.Shutdown(SocketShutdown.Both);
             this.socket.Dispose();
         }
     }

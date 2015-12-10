@@ -4,36 +4,43 @@ namespace PipBoy.Protocol
 {
     using System;
     using System.Net;
-    using System.Reactive.Disposables;
     using System.Reactive.Linq;
     using Newtonsoft.Json;
     using ReactiveUI;
 
     public sealed class CommandInterpreter : ReactiveObject, IDisposable
     {
-        private readonly IDisposable disposable;
-        private readonly LineReaderConnection lineReaderConnection;
+        private readonly IDisposable lineReader;
         private ServerVersion version;
 
         public CommandInterpreter(EndPoint endPoint)
         {
             this.ServerViewModel = new ServerViewModel();
 
-            this.lineReaderConnection = new LineReaderConnection();
-
-            var lineReader = Observable
+            this.lineReader = Observable
                 .Create<Tuple<byte, byte[]>>(async (observer, cancel) =>
                 {
-                    await this.lineReaderConnection.ConnectAsync(endPoint);
-                    while (true)
+                    using (var conn = new LineReaderConnection())
                     {
-                        var line = await this.lineReaderConnection.ReceiveAsync();
-                        if (line == null)
-                        {
-                            break;
-                        }
+                        cancel.Register(() => conn.Dispose());
+                        await conn.ConnectAsync(endPoint);
 
-                        observer.OnNext(line);
+                        var ping = Observable
+                            .Interval(TimeSpan.FromSeconds(1))
+                            .Subscribe(async _ => await conn.SendAsync((byte)CommandType.Ping, new byte[0]));
+                        using (ping)
+                        {
+                            while (!cancel.IsCancellationRequested)
+                            {
+                                var line = await conn.ReceiveAsync();
+                                if (line == null)
+                                {
+                                    break;
+                                }
+
+                                observer.OnNext(line);
+                            }
+                        }
                     }
                 })
                 .ObserveOn(RxApp.MainThreadScheduler)
@@ -41,14 +48,6 @@ namespace PipBoy.Protocol
                     line => this.ReadLine((CommandType)line.Item1, line.Item2),
                     ex => this.Dispose(),
                     () => this.Dispose());
-
-            var ping = Observable
-                .Interval(TimeSpan.FromSeconds(1))
-                .Subscribe(async _ => await this.lineReaderConnection.SendAsync((byte)CommandType.Ping, new byte[0]));
-
-            this.disposable = new CompositeDisposable(
-                lineReader,
-                ping);
         }
 
         private enum CommandType : byte
@@ -68,8 +67,8 @@ namespace PipBoy.Protocol
 
         public void Dispose()
         {
-            this.lineReaderConnection.Dispose();
-            this.disposable.Dispose();
+            this.lineReader.Dispose();
+            this.ServerViewModel.Root.Value = null;
         }
 
         private void ReadLine(CommandType type, byte[] data)
