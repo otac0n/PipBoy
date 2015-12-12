@@ -1,12 +1,11 @@
 ﻿// Copyright (c) John and Katie Gietzen. All rights reserved.
 
-namespace PipBoy.ViewModels
+namespace PipBoy.Protocol.ViewModels
 {
     using System.Collections.Generic;
-    using PipBoy.Protocol;
     using ReactiveUI;
 
-    internal class PlayerInfoViewModel : ReactiveObject
+    public class PlayerInfoViewModel : ReactiveObject
     {
         private readonly ObservableAsPropertyHelper<int> caps;
         private readonly ObservableAsPropertyHelper<int> currAP;
@@ -28,22 +27,22 @@ namespace PipBoy.ViewModels
         public PlayerInfoViewModel(Box box)
         {
             var properties = box.WhenAny(x => x.Value, x => x.Value as Dictionary<string, Box>);
-            properties.ToBoxedProperty(this, x => x.Caps, out this.caps, b => (int)b.Value);
-            properties.ToBoxedProperty(this, x => x.CurrAP, out this.currAP, b => (int)b.Value);
-            properties.ToBoxedProperty(this, x => x.CurrentHPGain, out this.currentHPGain, b => (int)b.Value);
-            properties.ToBoxedProperty(this, x => x.CurrHP, out this.currHP, b => (int)b.Value);
-            properties.ToBoxedProperty(this, x => x.CurrWeight, out this.currWeight, b => (int)b.Value);
-            properties.ToBoxedProperty(this, x => x.DateDay, out this.dateDay, b => (int)b.Value);
-            properties.ToBoxedProperty(this, x => x.DateMonth, out this.dateMonth, b => (int)b.Value);
-            properties.ToBoxedProperty(this, x => x.DateYear, out this.dateYear, b => (int)b.Value);
-            properties.ToBoxedProperty(this, x => x.MaxAP, out this.maxAP, b => (int)b.Value);
-            properties.ToBoxedProperty(this, x => x.MaxHP, out this.maxHP, b => (int)b.Value);
-            properties.ToBoxedProperty(this, x => x.MaxWeight, out this.maxWeight, b => (int)b.Value);
-            properties.ToBoxedProperty(this, x => x.PerkPoints, out this.perkPoints, b => (int)b.Value);
-            properties.ToBoxedProperty(this, x => x.PlayerName, out this.playerName, b => b.Value as string);
-            properties.ToBoxedProperty(this, x => x.TimeHour, out this.timeHour, b => (int)b.Value);
-            properties.ToBoxedProperty(this, x => x.XPLevel, out this.xpLevel, b => (int)b.Value);
-            properties.ToBoxedProperty(this, x => x.XPProgressPct, out this.xpProgressPct, b => (int)b.Value);
+            properties.ToBoxedProperty(this, x => x.Caps, out this.caps);
+            properties.ToBoxedProperty(this, x => x.CurrAP, out this.currAP);
+            properties.ToBoxedProperty(this, x => x.CurrentHPGain, out this.currentHPGain);
+            properties.ToBoxedProperty(this, x => x.CurrHP, out this.currHP);
+            properties.ToBoxedProperty(this, x => x.CurrWeight, out this.currWeight);
+            properties.ToBoxedProperty(this, x => x.DateDay, out this.dateDay);
+            properties.ToBoxedProperty(this, x => x.DateMonth, out this.dateMonth);
+            properties.ToBoxedProperty(this, x => x.DateYear, out this.dateYear);
+            properties.ToBoxedProperty(this, x => x.MaxAP, out this.maxAP);
+            properties.ToBoxedProperty(this, x => x.MaxHP, out this.maxHP);
+            properties.ToBoxedProperty(this, x => x.MaxWeight, out this.maxWeight);
+            properties.ToBoxedProperty(this, x => x.PerkPoints, out this.perkPoints);
+            properties.ToBoxedProperty(this, x => x.PlayerName, out this.playerName);
+            properties.ToBoxedProperty(this, x => x.TimeHour, out this.timeHour);
+            properties.ToBoxedProperty(this, x => x.XPLevel, out this.xpLevel);
+            properties.ToBoxedProperty(this, x => x.XPProgressPct, out this.xpProgressPct);
         }
 
         public int Caps => this.caps.Value;

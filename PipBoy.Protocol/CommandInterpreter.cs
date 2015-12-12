@@ -8,7 +8,7 @@ namespace PipBoy.Protocol
     using Newtonsoft.Json;
     using ReactiveUI;
 
-    public sealed class CommandInterpreter : ReactiveObject, IDisposable
+    internal sealed class CommandInterpreter : ReactiveObject, IDisposable
     {
         private readonly IDisposable lineReader;
         private ServerVersion version;

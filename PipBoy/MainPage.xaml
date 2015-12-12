@@ -12,11 +12,13 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel>
-            <TextBlock Text="{Binding ServerVersion.Version}" />
             <TextBlock Text="{Binding GameInfo.PlayerInfo.PlayerName}" />
             <StackPanel Orientation="Horizontal">
-                <RadioButton Name="Inventory">
-                    <TextBlock Text="Inventory"/>
+                <RadioButton Name="Inventory" IsChecked="True">
+                    <TextBlock Text="Inventory" />
+                </RadioButton>
+                <RadioButton Name="Map" IsChecked="False">
+                    <TextBlock Text="Map" />
                 </RadioButton>
             </StackPanel>
             <FlipView Visibility="{Binding IsChecked, ElementName=Inventory, Converter={StaticResource vis}}">
@@ -84,6 +86,14 @@
                     </ItemsControl>
                 </FlipViewItem>
             </FlipView>
+            <ItemsControl ItemsSource="{Binding GameInfo.Map.World.Portals}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </StackPanel>
+        <TextBlock Text="{Binding ServerVersion.Version}" TextAlignment="Right" VerticalAlignment="Top" />
     </Grid>
 </Page>

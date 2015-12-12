@@ -1,12 +1,11 @@
 ﻿// Copyright (c) John and Katie Gietzen. All rights reserved.
 
-namespace PipBoy.ViewModels
+namespace PipBoy.Protocol.ViewModels
 {
     using System.Collections.Generic;
-    using PipBoy.Protocol;
     using ReactiveUI;
 
-    internal class InventoryViewModel : ReactiveObject
+    public class InventoryViewModel : ReactiveObject
     {
         private readonly ObservableAsPropertyHelper<ObservableBoxedList<InventoryItemViewModel>> aid;
         private readonly ObservableAsPropertyHelper<ObservableBoxedList<InventoryItemViewModel>> ammo;
@@ -20,14 +19,14 @@ namespace PipBoy.ViewModels
         public InventoryViewModel(Box box)
         {
             var properties = box.WhenAny(x => x.Value, x => x.Value as Dictionary<string, Box>);
-            properties.ToBoxedProperty(this, x => x.Aid, out this.aid, b => new ObservableBoxedList<InventoryItemViewModel>(b, b2 => new InventoryItemViewModel(b2)), "48");
-            properties.ToBoxedProperty(this, x => x.Ammo, out this.ammo, b => new ObservableBoxedList<InventoryItemViewModel>(b, b2 => new InventoryItemViewModel(b2)), "44");
-            properties.ToBoxedProperty(this, x => x.Apparel, out this.apparel, b => new ObservableBoxedList<InventoryItemViewModel>(b, b2 => new InventoryItemViewModel(b2)), "29");
-            properties.ToBoxedProperty(this, x => x.Holotapes, out this.holotapes, b => new ObservableBoxedList<InventoryItemViewModel>(b, b2 => new InventoryItemViewModel(b2)), "50");
-            properties.ToBoxedProperty(this, x => x.Keys, out this.keys, b => new ObservableBoxedList<InventoryItemViewModel>(b, b2 => new InventoryItemViewModel(b2)), "47");
-            properties.ToBoxedProperty(this, x => x.Misc, out this.misc, b => new ObservableBoxedList<InventoryItemViewModel>(b, b2 => new InventoryItemViewModel(b2)), "35");
-            properties.ToBoxedProperty(this, x => x.Notes, out this.notes, b => new ObservableBoxedList<InventoryItemViewModel>(b, b2 => new InventoryItemViewModel(b2)), "30");
-            properties.ToBoxedProperty(this, x => x.Weapons, out this.weapons, b => new ObservableBoxedList<InventoryItemViewModel>(b, b2 => new InventoryItemViewModel(b2)), "43");
+            properties.ToBoxedListProperty(this, x => x.Aid, out this.aid, b => new InventoryItemViewModel(b), "48");
+            properties.ToBoxedListProperty(this, x => x.Ammo, out this.ammo, b => new InventoryItemViewModel(b), "44");
+            properties.ToBoxedListProperty(this, x => x.Apparel, out this.apparel, b => new InventoryItemViewModel(b), "29");
+            properties.ToBoxedListProperty(this, x => x.Holotapes, out this.holotapes, b => new InventoryItemViewModel(b), "50");
+            properties.ToBoxedListProperty(this, x => x.Keys, out this.keys, b => new InventoryItemViewModel(b), "47");
+            properties.ToBoxedListProperty(this, x => x.Misc, out this.misc, b => new InventoryItemViewModel(b), "35");
+            properties.ToBoxedListProperty(this, x => x.Notes, out this.notes, b => new InventoryItemViewModel(b), "30");
+            properties.ToBoxedListProperty(this, x => x.Weapons, out this.weapons, b => new InventoryItemViewModel(b), "43");
         }
 
         public ObservableBoxedList<InventoryItemViewModel> Aid => this.aid.Value;

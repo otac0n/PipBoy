@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0EF1BD50-F9DF-42A9-9080-4BE112236A34}</ProjectGuid>
+    <ProjectGuid>{2D7B4D37-A62D-408C-A94C-BF97EFA78FF4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PipBoy.Protocol</RootNamespace>
-    <AssemblyName>PipBoy.Protocol</AssemblyName>
+    <RootNamespace>PipBoy.Middleware</RootNamespace>
+    <AssemblyName>PipBoy.Middleware</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
@@ -16,6 +16,25 @@
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <PlatformTarget>ARM</PlatformTarget>
@@ -27,9 +46,6 @@
     <PlatformTarget>ARM</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
-    <DocumentationFile>bin\ARM\Debug\PipBoy.Protocol.xml</DocumentationFile>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>..\Modern.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
     <PlatformTarget>ARM</PlatformTarget>
@@ -41,9 +57,6 @@
     <PlatformTarget>ARM</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
-    <DocumentationFile>bin\ARM\Release\PipBoy.Protocol.xml</DocumentationFile>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>..\Modern.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <PlatformTarget>x64</PlatformTarget>
@@ -55,9 +68,6 @@
     <PlatformTarget>x64</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
-    <DocumentationFile>bin\x64\Debug\PipBoy.Protocol.xml</DocumentationFile>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>..\Modern.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <PlatformTarget>x64</PlatformTarget>
@@ -69,9 +79,6 @@
     <PlatformTarget>x64</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
-    <DocumentationFile>bin\x64\Release\PipBoy.Protocol.xml</DocumentationFile>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>..\Modern.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <PlatformTarget>x86</PlatformTarget>
@@ -83,9 +90,6 @@
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
-    <DocumentationFile>bin\x86\Debug\PipBoy.Protocol.xml</DocumentationFile>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>..\Modern.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <PlatformTarget>x86</PlatformTarget>
@@ -97,9 +101,6 @@
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
-    <DocumentationFile>bin\x86\Release\PipBoy.Protocol.xml</DocumentationFile>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>..\Modern.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
@@ -109,26 +110,14 @@
     </AdditionalFiles>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Box.cs" />
-    <Compile Include="CommandInterpreter.cs" />
-    <Compile Include="LineReaderConnection.cs" />
-    <Compile Include="ServerViewModel.cs" />
-    <Compile Include="TcpConnection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServerVersion.cs" />
-    <Compile Include="ViewModels\ClientViewModel.cs" />
-    <Compile Include="ViewModels\GameInfoViewModel.cs" />
-    <Compile Include="ViewModels\InventoryItemViewModel.cs" />
-    <Compile Include="ViewModels\InventoryViewModel.cs" />
-    <Compile Include="ViewModels\MapMarkerViewModel.cs" />
-    <Compile Include="ViewModels\MapScopeViewModel.cs" />
-    <Compile Include="ViewModels\MapViewModel.cs" />
-    <Compile Include="ViewModels\ObservableBoxedList.cs" />
-    <Compile Include="ViewModels\ObservableExtensions.cs" />
-    <Compile Include="ViewModels\PlayerInfoViewModel.cs" />
-    <Compile Include="ViewModels\PortalMapMarkerViewModel.cs" />
-    <Compile Include="ViewModels\QuestMapMarkerViewModel.cs" />
-    <Content Include="Properties\PipBoy.Protocol.rd.xml" />
+    <Content Include="Properties\PipBoy.Middleware.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PipBoy.Protocol\PipBoy.Protocol.csproj">
+      <Project>{0ef1bd50-f9df-42a9-9080-4be112236a34}</Project>
+      <Name>PipBoy.Protocol</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

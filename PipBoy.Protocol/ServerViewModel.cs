@@ -7,7 +7,7 @@ namespace PipBoy.Protocol
     using System.Linq;
     using System.Text;
 
-    public class ServerViewModel
+    internal class ServerViewModel
     {
         public static readonly Encoding StringEncoding = Encoding.GetEncoding(28591);
 

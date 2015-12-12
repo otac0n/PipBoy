@@ -1,15 +1,14 @@
 ﻿// Copyright (c) John and Katie Gietzen. All rights reserved.
 
-namespace PipBoy.ViewModels
+namespace PipBoy.Protocol.ViewModels
 {
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Diagnostics;
-    using PipBoy.Protocol;
 
-    internal class ObservableBoxedList<T> : ObservableCollection<T>
+    public class ObservableBoxedList<T> : ObservableCollection<T>
     {
         private readonly Box box;
         private readonly Func<Box, T> factory;

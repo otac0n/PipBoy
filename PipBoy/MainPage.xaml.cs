@@ -3,7 +3,7 @@
 namespace PipBoy
 {
     using System.Net;
-    using PipBoy.ViewModels;
+    using PipBoy.Protocol.ViewModels;
     using Windows.UI.Xaml.Controls;
 
     /// <summary>

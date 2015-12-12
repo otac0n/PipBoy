@@ -1,13 +1,12 @@
 ﻿// Copyright (c) John and Katie Gietzen. All rights reserved.
 
-namespace PipBoy.ViewModels
+namespace PipBoy.Protocol.ViewModels
 {
     using System;
     using System.Net;
-    using PipBoy.Protocol;
     using ReactiveUI;
 
-    internal class ClientViewModel : ReactiveObject, IDisposable
+    public class ClientViewModel : ReactiveObject, IDisposable
     {
         private readonly CommandInterpreter connection;
         private readonly ObservableAsPropertyHelper<ServerVersion> serverVersion;
