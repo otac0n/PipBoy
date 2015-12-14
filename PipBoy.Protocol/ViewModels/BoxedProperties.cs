@@ -94,13 +94,22 @@
                 var bindings = new List<Action<IObservable<Dictionary<string, Box>>, T>>();
 
                 var thisType = typeof(T);
-                var props = from f in thisType.GetRuntimeFields()
-                            where f.FieldType.IsConstructedGenericType
-                            where f.FieldType.GetGenericTypeDefinition() == typeof(ObservableAsPropertyHelper<>)
-                            join p in thisType.GetRuntimeProperties() on f.Name.ToUpperInvariant() equals p.Name.ToUpperInvariant()
-                            where f.FieldType.GetGenericArguments()[0] == p.PropertyType
-                            let n = p.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ?? p.Name
-                            select new { Property = p, Field = f, Name = n };
+
+                var fields = thisType.GetRuntimeFields().ToList();
+                var t = thisType.GetTypeInfo().BaseType;
+                while (t != typeof(BoxedProperties))
+                {
+                    fields.AddRange(t.GetRuntimeFields());
+                    t = t.GetTypeInfo().BaseType;
+                }
+
+                var props = (from f in fields
+                             where f.FieldType.IsConstructedGenericType
+                             where f.FieldType.GetGenericTypeDefinition() == typeof(ObservableAsPropertyHelper<>)
+                             join p in thisType.GetRuntimeProperties() on f.Name.ToUpperInvariant() equals p.Name.ToUpperInvariant()
+                             where f.FieldType.GetGenericArguments()[0] == p.PropertyType
+                             let n = p.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ?? p.Name
+                             select new { Property = p, Field = f, Name = n }).ToList();
 
                 var toProperty = (from m in typeof(OAPHCreationHelperMixin).GetMethods()
                                   where m.Name == nameof(OAPHCreationHelperMixin.ToProperty)

@@ -9,8 +9,11 @@ namespace PipBoy.Protocol.ViewModels
     {
         private readonly ObservableAsPropertyHelper<bool> canFavorite;
         private readonly ObservableAsPropertyHelper<int> count;
+        private readonly ObservableAsPropertyHelper<int?> currentHPGain;
         private readonly ObservableAsPropertyHelper<int> equipState;
         private readonly ObservableAsPropertyHelper<int> favorite;
+        private readonly ObservableAsPropertyHelper<int> formID;
+        private readonly ObservableAsPropertyHelper<int> handleID;
         private readonly ObservableAsPropertyHelper<bool> isLegendary;
         private readonly ObservableAsPropertyHelper<bool> isPowerArmorItem;
         private readonly ObservableAsPropertyHelper<bool> taggedForSearch;
@@ -27,11 +30,18 @@ namespace PipBoy.Protocol.ViewModels
         [JsonProperty("count")]
         public int Count => this.count.Value;
 
+        public int? CurrentHPGain => this.currentHPGain.Value;
+
         [JsonProperty("equipState")]
         public int EquipState => this.equipState.Value;
 
         [JsonProperty("favorite")]
         public int Favorite => this.favorite.Value;
+
+        [JsonProperty("formID")]
+        public int FormID => this.formID.Value;
+
+        public int HandleID => this.handleID.Value;
 
         [JsonProperty("isLegendary")]
         public bool IsLegendary => this.isLegendary.Value;
