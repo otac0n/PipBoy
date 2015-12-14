@@ -87,7 +87,7 @@
                     </ItemsControl>
                 </FlipViewItem>
             </FlipView>
-            <ItemsControl ItemsSource="{Binding GameInfo.Map.World.Portals}">
+            <ItemsControl ItemsSource="{Binding GameInfo.Map.World.Locations}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}" />

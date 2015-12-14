@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using System.Linq.Expressions;
     using System.Reactive.Linq;
@@ -53,6 +54,15 @@
                         Expression.Convert(boxValue, returnType),
                         Expression.Default(returnType));
                 }
+                else if (returnType.IsConstructedGenericType && returnType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                {
+                    var boxValue = Expression.MakeMemberAccess(box, typeof(Box).GetProperty(nameof(Box.Value)));
+                    var underlyingType = Nullable.GetUnderlyingType(returnType);
+                    body = Expression.Condition(
+                        Expression.TypeIs(boxValue, underlyingType),
+                        Expression.Convert(Expression.Convert(boxValue, underlyingType), returnType),
+                        Expression.Default(returnType));
+                }
                 else if (returnType.IsConstructedGenericType && returnType.GetGenericTypeDefinition() == typeof(ObservableBoxedList<>))
                 {
                     var innerType = returnType.GetGenericArguments().Single();
@@ -73,14 +83,15 @@
         }
 
         private class Binder<T> : Binder
+            where T : BoxedProperties
         {
-            private static readonly IList<Action<Box, T>> Bindings;
+            private static readonly IList<Action<IObservable<Dictionary<string, Box>>, T>> Bindings;
 
             public override void Bind(Box box, object @this) => Bind(box, (T)@this);
 
             static Binder()
             {
-                var bindings = new List<Action<Box, T>>();
+                var bindings = new List<Action<IObservable<Dictionary<string, Box>>, T>>();
 
                 var thisType = typeof(T);
                 var props = from f in thisType.GetRuntimeFields()
@@ -88,8 +99,8 @@
                             where f.FieldType.GetGenericTypeDefinition() == typeof(ObservableAsPropertyHelper<>)
                             join p in thisType.GetRuntimeProperties() on f.Name.ToUpperInvariant() equals p.Name.ToUpperInvariant()
                             where f.FieldType.GetGenericArguments()[0] == p.PropertyType
-                            let n = p.Name
-                            select new { Property = p, Field = f };
+                            let n = p.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ?? p.Name
+                            select new { Property = p, Field = f, Name = n };
 
                 var toProperty = (from m in typeof(OAPHCreationHelperMixin).GetMethods()
                                   where m.Name == nameof(OAPHCreationHelperMixin.ToProperty)
@@ -112,17 +123,16 @@
                 foreach (var p in props)
                 {
                     var type = p.Property.PropertyType;
+                    var name = p.Name;
                     var defaultValue = type.GetTypeInfo().IsValueType ? Activator.CreateInstance(type) : null;
                     var v = Expression.Parameter(thisType);
                     var expr = Expression.Lambda(Expression.MakeMemberAccess(v, p.Property), v);
                     var makeMapConstructed = makeMap.MakeGenericMethod(type);
                     var map = (Delegate)makeMapConstructed.Invoke(null, new object[0]);
                     var toPropertyConstructed = toProperty.MakeGenericMethod(thisType, type);
-                    var name = p.Property.GetCustomAttribute<JsonPropertyAttribute>()?.PropertyName ?? p.Property.Name;
 
-                    bindings.Add((box, @this) =>
+                    bindings.Add((dict, @this) =>
                     {
-                        var dict = box.WhenAny(x => x.Value, x => x.Value as Dictionary<string, Box>);
                         var args = new object[]
                         {
                             map.DynamicInvoke(dict, name),
@@ -137,14 +147,35 @@
                     });
                 }
 
+#if DEBUG
+                var allNames = new HashSet<string>(props.Select(p => p.Name));
+                bindings.Add((dict, @this) =>
+                {
+                    dict.Subscribe(d =>
+                    {
+                        if (d == null)
+                        {
+                            return;
+                        }
+
+                        var extra = d.Keys.Where(k => !allNames.Contains(k));
+                        if (extra.Any())
+                        {
+                            Debug.WriteLine($"{typeof(T)} is missing properties {string.Join(", ", extra)}");
+                        }
+                    });
+                });
+#endif
+
                 Bindings = bindings;
             }
 
             private void Bind(Box box, T @this)
             {
+                var dict = box.WhenAny(x => x.Value, x => x.Value as Dictionary<string, Box>);
                 foreach (var binding in Bindings)
                 {
-                    binding(box, @this);
+                    binding(dict, @this);
                 }
             }
         }

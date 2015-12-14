@@ -18,8 +18,8 @@
 
         public string CurrWorldspace => this.currWorldspace.Value;
 
-        private LocalMapScopeViewModel Local => this.local.Value;
+        public LocalMapScopeViewModel Local => this.local.Value;
 
-        private WorldMapScopeViewModel World => this.world.Value;
+        public WorldMapScopeViewModel World => this.world.Value;
     }
 }
