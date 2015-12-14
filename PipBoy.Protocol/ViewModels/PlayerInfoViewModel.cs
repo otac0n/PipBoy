@@ -2,10 +2,9 @@
 
 namespace PipBoy.Protocol.ViewModels
 {
-    using System.Collections.Generic;
     using ReactiveUI;
 
-    public class PlayerInfoViewModel : ReactiveObject
+    public class PlayerInfoViewModel : BoxedProperties
     {
         private readonly ObservableAsPropertyHelper<int> caps;
         private readonly ObservableAsPropertyHelper<int> currAP;
@@ -25,24 +24,8 @@ namespace PipBoy.Protocol.ViewModels
         private readonly ObservableAsPropertyHelper<int> xpProgressPct;
 
         public PlayerInfoViewModel(Box box)
+            : base(box)
         {
-            var properties = box.WhenAny(x => x.Value, x => x.Value as Dictionary<string, Box>);
-            properties.ToBoxedProperty(this, x => x.Caps, out this.caps);
-            properties.ToBoxedProperty(this, x => x.CurrAP, out this.currAP);
-            properties.ToBoxedProperty(this, x => x.CurrentHPGain, out this.currentHPGain);
-            properties.ToBoxedProperty(this, x => x.CurrHP, out this.currHP);
-            properties.ToBoxedProperty(this, x => x.CurrWeight, out this.currWeight);
-            properties.ToBoxedProperty(this, x => x.DateDay, out this.dateDay);
-            properties.ToBoxedProperty(this, x => x.DateMonth, out this.dateMonth);
-            properties.ToBoxedProperty(this, x => x.DateYear, out this.dateYear);
-            properties.ToBoxedProperty(this, x => x.MaxAP, out this.maxAP);
-            properties.ToBoxedProperty(this, x => x.MaxHP, out this.maxHP);
-            properties.ToBoxedProperty(this, x => x.MaxWeight, out this.maxWeight);
-            properties.ToBoxedProperty(this, x => x.PerkPoints, out this.perkPoints);
-            properties.ToBoxedProperty(this, x => x.PlayerName, out this.playerName);
-            properties.ToBoxedProperty(this, x => x.TimeHour, out this.timeHour);
-            properties.ToBoxedProperty(this, x => x.XPLevel, out this.xpLevel);
-            properties.ToBoxedProperty(this, x => x.XPProgressPct, out this.xpProgressPct);
         }
 
         public int Caps => this.caps.Value;

@@ -3,6 +3,7 @@
 namespace PipBoy
 {
     using System.Net;
+    using PipBoy.Middleware;
     using PipBoy.Protocol.ViewModels;
     using Windows.UI.Xaml.Controls;
 
@@ -14,7 +15,18 @@ namespace PipBoy
         public MainPage()
         {
             this.InitializeComponent();
-            this.DataContext = new ClientViewModel(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 27000));
+            this.DataContext = new ViewModel(new DnsEndPoint("localhost", 27000));
+        }
+
+        public sealed class ViewModel : ClientViewModel
+        {
+            public ViewModel(EndPoint endPoint)
+                : base(endPoint)
+            {
+                this.Nurse = new Middleware.Nurse(this);
+            }
+
+            public Nurse Nurse { get; }
         }
     }
 }

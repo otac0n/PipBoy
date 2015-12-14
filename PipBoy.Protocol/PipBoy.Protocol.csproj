@@ -116,18 +116,20 @@
     <Compile Include="TcpConnection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerVersion.cs" />
+    <Compile Include="ViewModels\BoxedProperties.cs" />
     <Compile Include="ViewModels\ClientViewModel.cs" />
     <Compile Include="ViewModels\GameInfoViewModel.cs" />
     <Compile Include="ViewModels\InventoryItemViewModel.cs" />
     <Compile Include="ViewModels\InventoryViewModel.cs" />
+    <Compile Include="ViewModels\LocalMapScopeViewModel.cs" />
     <Compile Include="ViewModels\MapMarkerViewModel.cs" />
     <Compile Include="ViewModels\MapScopeViewModel.cs" />
     <Compile Include="ViewModels\MapViewModel.cs" />
     <Compile Include="ViewModels\ObservableBoxedList.cs" />
-    <Compile Include="ViewModels\ObservableExtensions.cs" />
     <Compile Include="ViewModels\PlayerInfoViewModel.cs" />
     <Compile Include="ViewModels\PortalMapMarkerViewModel.cs" />
     <Compile Include="ViewModels\QuestMapMarkerViewModel.cs" />
+    <Compile Include="ViewModels\WorldMapScopeViewModel.cs" />
     <Content Include="Properties\PipBoy.Protocol.rd.xml" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

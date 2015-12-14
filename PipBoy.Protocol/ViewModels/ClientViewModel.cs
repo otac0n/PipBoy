@@ -26,6 +26,7 @@ namespace PipBoy.Protocol.ViewModels
 
         public GameInfoViewModel GameInfo { get; }
 
+        /// <inheritdoc/>
         public void Dispose()
         {
             this.connection.Dispose();

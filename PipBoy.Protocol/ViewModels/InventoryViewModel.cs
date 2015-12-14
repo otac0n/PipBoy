@@ -2,10 +2,10 @@
 
 namespace PipBoy.Protocol.ViewModels
 {
-    using System.Collections.Generic;
+    using Newtonsoft.Json;
     using ReactiveUI;
 
-    public class InventoryViewModel : ReactiveObject
+    public class InventoryViewModel : BoxedProperties
     {
         private readonly ObservableAsPropertyHelper<ObservableBoxedList<InventoryItemViewModel>> aid;
         private readonly ObservableAsPropertyHelper<ObservableBoxedList<InventoryItemViewModel>> ammo;
@@ -17,32 +17,32 @@ namespace PipBoy.Protocol.ViewModels
         private readonly ObservableAsPropertyHelper<ObservableBoxedList<InventoryItemViewModel>> weapons;
 
         public InventoryViewModel(Box box)
+            : base(box)
         {
-            var properties = box.WhenAny(x => x.Value, x => x.Value as Dictionary<string, Box>);
-            properties.ToBoxedListProperty(this, x => x.Aid, out this.aid, b => new InventoryItemViewModel(b), "48");
-            properties.ToBoxedListProperty(this, x => x.Ammo, out this.ammo, b => new InventoryItemViewModel(b), "44");
-            properties.ToBoxedListProperty(this, x => x.Apparel, out this.apparel, b => new InventoryItemViewModel(b), "29");
-            properties.ToBoxedListProperty(this, x => x.Holotapes, out this.holotapes, b => new InventoryItemViewModel(b), "50");
-            properties.ToBoxedListProperty(this, x => x.Keys, out this.keys, b => new InventoryItemViewModel(b), "47");
-            properties.ToBoxedListProperty(this, x => x.Misc, out this.misc, b => new InventoryItemViewModel(b), "35");
-            properties.ToBoxedListProperty(this, x => x.Notes, out this.notes, b => new InventoryItemViewModel(b), "30");
-            properties.ToBoxedListProperty(this, x => x.Weapons, out this.weapons, b => new InventoryItemViewModel(b), "43");
         }
 
+        [JsonProperty("48")]
         public ObservableBoxedList<InventoryItemViewModel> Aid => this.aid.Value;
 
+        [JsonProperty("44")]
         public ObservableBoxedList<InventoryItemViewModel> Ammo => this.ammo.Value;
 
+        [JsonProperty("29")]
         public ObservableBoxedList<InventoryItemViewModel> Apparel => this.apparel.Value;
 
+        [JsonProperty("50")]
         public ObservableBoxedList<InventoryItemViewModel> Holotapes => this.holotapes.Value;
 
+        [JsonProperty("47")]
         public ObservableBoxedList<InventoryItemViewModel> Keys => this.keys.Value;
 
+        [JsonProperty("35")]
         public ObservableBoxedList<InventoryItemViewModel> Misc => this.misc.Value;
 
+        [JsonProperty("30")]
         public ObservableBoxedList<InventoryItemViewModel> Notes => this.notes.Value;
 
+        [JsonProperty("43")]
         public ObservableBoxedList<InventoryItemViewModel> Weapons => this.weapons.Value;
     }
 }

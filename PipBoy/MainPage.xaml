@@ -13,6 +13,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel>
             <TextBlock Text="{Binding GameInfo.PlayerInfo.PlayerName}" />
+            <TextBlock Text="{Binding Nurse.HPDefecit}" />
             <StackPanel Orientation="Horizontal">
                 <RadioButton Name="Inventory" IsChecked="True">
                     <TextBlock Text="Inventory" />

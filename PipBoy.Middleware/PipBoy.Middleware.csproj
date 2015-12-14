@@ -110,6 +110,7 @@
     </AdditionalFiles>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Nurse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Properties\PipBoy.Middleware.rd.xml" />
   </ItemGroup>
