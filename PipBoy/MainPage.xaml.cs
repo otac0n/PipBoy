@@ -15,7 +15,7 @@ namespace PipBoy
         public MainPage()
         {
             this.InitializeComponent();
-            this.DataContext = new ViewModel(new DnsEndPoint("localhost", 27000));
+            this.DataContext = new ViewModel(new DnsEndPoint("192.168.0.2", 27000));
         }
 
         public sealed class ViewModel : ClientViewModel

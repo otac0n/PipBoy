@@ -8,11 +8,14 @@
     mc:Ignorable="d">
     <Page.Resources>
         <local:BooleanToVisibilityConverter x:Key="vis" />
+        <local:DiscoveredBooleanToBrushConverter x:Key="disc" />
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel>
             <TextBlock Text="{Binding GameInfo.PlayerInfo.PlayerName}" />
+            <TextBlock Text="{Binding GameInfo.PlayerInfo.CurrHP}" />
+            <TextBlock Text="{Binding GameInfo.PlayerInfo.MaxHP}" />
             <TextBlock Text="{Binding Nurse.HPDefecit}" />
             <StackPanel Orientation="Horizontal">
                 <RadioButton Name="Inventory" IsChecked="True">
@@ -27,7 +30,10 @@
                     <ItemsControl ItemsSource="{Binding GameInfo.Inventory.Weapons}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Text}" />
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Text}" />
+                                    <TextBlock Text="{Binding Count}" />
+                                </StackPanel>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -36,7 +42,10 @@
                     <ItemsControl ItemsSource="{Binding GameInfo.Inventory.Apparel}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Text}" />
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Text}" />
+                                    <TextBlock Text="{Binding Count}" />
+                                </StackPanel>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -45,7 +54,10 @@
                     <ItemsControl ItemsSource="{Binding GameInfo.Inventory.Aid}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Text}" />
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Text}" />
+                                    <TextBlock Text="{Binding Count}" />
+                                </StackPanel>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -54,7 +66,10 @@
                     <ItemsControl ItemsSource="{Binding GameInfo.Inventory.Misc}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Text}" />
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Text}" />
+                                    <TextBlock Text="{Binding Count}" />
+                                </StackPanel>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -63,7 +78,10 @@
                     <ItemsControl ItemsSource="{Binding GameInfo.Inventory.Junk}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Text}" />
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Text}" />
+                                    <TextBlock Text="{Binding Count}" />
+                                </StackPanel>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -72,7 +90,10 @@
                     <ItemsControl ItemsSource="{Binding GameInfo.Inventory.Mods}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Text}" />
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Text}" />
+                                    <TextBlock Text="{Binding Count}" />
+                                </StackPanel>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -81,7 +102,10 @@
                     <ItemsControl ItemsSource="{Binding GameInfo.Inventory.Ammo}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Text}" />
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Text}" />
+                                    <TextBlock Text="{Binding Count}" />
+                                </StackPanel>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -90,7 +114,7 @@
             <ItemsControl ItemsSource="{Binding GameInfo.Map.World.Locations}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Name}" />
+                        <TextBlock Text="{Binding Name}" Foreground="{Binding Discovered, Converter={StaticResource disc}}" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

@@ -91,6 +91,9 @@ namespace PipBoy.Protocol
                         break;
                     }
 
+                case (CommandType)2:
+                    break;
+
                 default:
                     throw new NotSupportedException();
             }

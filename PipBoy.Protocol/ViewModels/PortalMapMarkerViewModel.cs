@@ -1,4 +1,6 @@
-﻿namespace PipBoy.Protocol.ViewModels
+﻿// Copyright (c) John and Katie Gietzen. All rights reserved.
+
+namespace PipBoy.Protocol.ViewModels
 {
     using Newtonsoft.Json;
     using ReactiveUI;
